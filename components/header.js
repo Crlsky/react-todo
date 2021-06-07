@@ -1,18 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function Header({navigation}) {
-
-    const buttonClickedHandler = () => {
-        // navigate to add screen
-        console.log('add');
-    }
-
+export default function Header({ addItem, navigation }) {
+    
     return (
         <View style={styles.header}>
             <Text style={styles.title}>My Todo App</Text>
             <TouchableOpacity
-                onPress={()=> navigation.navigate('Form')}
+                onPress={()=> navigation.navigate('Form', {addItem: addItem})}
                 style={styles.addItemScreen}><Text>+</Text></TouchableOpacity>
         </View>
     )
@@ -23,7 +18,8 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         justifyContent: 'space-between',
         backgroundColor: 'cadetblue',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingTop: 40
     },
 
     title: {

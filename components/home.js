@@ -5,7 +5,7 @@ import TodoItem from './todoItem';
 import Form from './todoForm';
 
 
-export default function Home({navigation}) {
+export default function Home({ navigation }) {
     const [todos, setTodos] = useState([
       { text: "buy coffe", date: "24.08.2020", key: '1'},
       { text: "buy bread", date: "24.08.2020", key: '2'},
@@ -26,12 +26,12 @@ export default function Home({navigation}) {
         ]
       })
     }
+
   
     return (
       <View style={styles.container}>
-        <Header navigation={navigation}/>
+        <Header navigation={navigation} addItem={addItem}/>
         <View style={styles.content}>
-          {/* <Form addItem={addItem}/> */}
           <View style={styles.list}>
             <FlatList 
               data={todos}

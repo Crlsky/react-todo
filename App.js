@@ -9,9 +9,9 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Form" component={Form} />
+      <Stack.Navigator initialRouteName="Home"  >
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }}/>
+        <Stack.Screen name="Form" component={Form} options={{ title: 'Add ToDo'}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

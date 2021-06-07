@@ -3,11 +3,13 @@ import { StyleSheet, Text, View, TextInput, Button, Platform} from 'react-native
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Moment from 'moment';
 
-export default function Form( {addItem, navigation }) {
+export default function Form( { route, navigation }) {
     Moment.locale('pl');
     const [date, setDate] = useState(new Date())
     const [show, setShow] = useState(false);
     const [text, setText] = useState('');
+
+    const {addItem}=route.params;
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -21,6 +23,11 @@ export default function Form( {addItem, navigation }) {
 
     const changeHandler = (val) => {
         setText(val);
+    }
+
+    const addTodo = (text, date) => {
+        addItem(text,date);
+        navigation.navigate('Home');
     }
  
     return(
@@ -38,7 +45,7 @@ export default function Form( {addItem, navigation }) {
                 />
                 <Button 
                     title='Add' 
-                    onPress={()=>addItem(text, Moment(date).format('D.M.Y'))}
+                    onPress={()=>addTodo(text, Moment(date).format('D.M.Y'))}
                 />
             </View>
             {show && (
