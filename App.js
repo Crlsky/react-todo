@@ -1,62 +1,23 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-import Header from './components/header';
-import TodoItem from './components/todoItem';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './components/home';
 import Form from './components/todoForm';
 
-export default function App() {
-  const [todos, setTodos] = useState([
-    { text: "buy coffe", date: "24.08.2020", key: '1'},
-    { text: "buy bread", date: "24.08.2020", key: '2'},
-    { text: "buy bananas", date: "24.08.2020", key: '3'}
-  ]);
+const Stack = createStackNavigator();
 
-  const delItem = (key) => {
-    setTodos((prevTodos)=>{
-      return prevTodos.filter(todo => todo.key != key)
-    })
-  }
-
-  const addItem = (text, date) => {
-    setTodos((prevTodos)=>{
-      return [
-        {text: text, date: date, key: Math.random().toString()},
-        ...prevTodos
-      ]
-    })
-  }
-
+function App() {
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.content}>
-        <Form addItem={addItem}/>
-        <View style={styles.list}>
-          <FlatList 
-            data={todos}
-            renderItem={({item})=>(
-              <TodoItem item={item} delItem={delItem}/>
-            )}
-          />
-        </View>
-      </View>
-      
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Form" component={Form} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  content: {
-    paddingTop: 20,
-  },
+export default App;
 
-  list: {
-    marginTop: 20,
-  }
-});
+
+
