@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from './header';
 import TodoItem from './todoItem';
-import Form from './todoForm';
 
 
 export default function Home({ navigation }) {
@@ -16,6 +16,7 @@ export default function Home({ navigation }) {
       setTodos((prevTodos)=>{
         return prevTodos.filter(todo => todo.key != key)
       })
+      storeItems()
     }
   
     const addItem = (text, date) => {
@@ -25,9 +26,24 @@ export default function Home({ navigation }) {
           ...prevTodos
         ]
       })
+      storeItems()
     }
 
-  
+    const storeItems = async () => {
+      const jsonData = JSON.stringify(todos)
+      await AsyncStorage.setItem('todosList', jsonData)
+    }
+
+    const getItems = async () => {
+      const todoList = await AsyncStorage.getItem('todosList')
+
+      if(todoList !== null){
+        setTodos((prevTodos)=>{
+          return JSON.parse(todoList)
+        })
+      }
+    }
+
     return (
       <View style={styles.container}>
         <Header navigation={navigation} addItem={addItem}/>
@@ -41,6 +57,7 @@ export default function Home({ navigation }) {
             />
           </View>
         </View>
+        {/* <Button onPress={()=>{console.log(todos)}} title="read"/> */}
       </View>
     );
 }

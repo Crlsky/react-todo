@@ -8,7 +8,7 @@ export default function Header({ addItem, navigation }) {
             <Text style={styles.title}>My Todo App</Text>
             <TouchableOpacity
                 onPress={()=> navigation.navigate('Form', {addItem: addItem})}
-                style={styles.addItemScreen}><Text>+</Text></TouchableOpacity>
+                style={styles.addItemScreen}><Text style={styles.addPlus}>+</Text></TouchableOpacity>
         </View>
     )
 }
@@ -37,7 +37,11 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         padding: 5,
         borderRadius: 100,
-        fontSize: 30,
-        backgroundColor: 'blue',
+        backgroundColor: '#53888a',
+    },
+
+    addPlus: {
+        marginTop: -4,
+        fontSize: 40,
     }
 });
